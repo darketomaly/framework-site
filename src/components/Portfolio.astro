@@ -16,6 +16,11 @@ import { siPlaystation, siQuest, siSteam } from "simple-icons"
 				<li>Lead Programmer <span>2023–2024</span></li>
 			</ul>
 			<p>A placeholder description for the first game in the portfolio. More details will be added soon.</p>
+			<div class="game-gallery" aria-label="Placeholder Game screenshots">
+				<img src="/sketch.png" alt="Placeholder Game screenshot one">
+				<img src="/sketch.png" alt="Placeholder Game screenshot two">
+				<img src="/sketch.png" alt="Placeholder Game screenshot three">
+			</div>
 			<nav class="store-links" aria-label="Placeholder Game store pages">
 				<a class="store-link" href="https://store.steampowered.com/" target="_blank" rel="noopener noreferrer" aria-label="Steam">
 					<svg viewBox="0 0 24 24" aria-hidden="true">
@@ -98,6 +103,20 @@ import { siPlaystation, siQuest, siSteam } from "simple-icons"
 		margin: 0.4rem 0 0;
 		color: #b8c1c8;
 		line-height: 1.6;
+	}
+
+	.game-gallery {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 0.5rem;
+		margin-top: 1rem;
+	}
+
+	.game-gallery img {
+		width: 100%;
+		aspect-ratio: 16 / 9;
+		border-radius: 6px;
+		object-fit: cover;
 	}
 
 	.store-links {
