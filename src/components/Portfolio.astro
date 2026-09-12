@@ -72,6 +72,7 @@ import { siPlaystation, siQuest, siSteam } from "simple-icons"
 	const galleryControls = lightbox?.querySelectorAll<HTMLButtonElement>("[data-gallery-index]");
 	const thumbnails = document.querySelectorAll<HTMLButtonElement>(".gallery-thumbnail");
 	let currentIndex = 0;
+	let previousDocumentOverflow = "";
 
 	const showImage = (index: number) => {
 		if (!lightboxImage || !counter || !galleryControls) return;
@@ -89,6 +90,8 @@ import { siPlaystation, siQuest, siSteam } from "simple-icons"
 	thumbnails.forEach((thumbnail) => {
 		thumbnail.addEventListener("click", () => {
 			showImage(Number(thumbnail.dataset.galleryIndex));
+			previousDocumentOverflow = document.documentElement.style.overflow;
+			document.documentElement.style.overflow = "hidden";
 			lightbox?.showModal();
 		});
 	});
@@ -108,6 +111,7 @@ import { siPlaystation, siQuest, siSteam } from "simple-icons"
 
 	lightbox?.addEventListener("close", () => {
 		showImage(0);
+		document.documentElement.style.overflow = previousDocumentOverflow;
 		document.querySelector<HTMLButtonElement>(".gallery-thumbnail:focus")?.blur();
 	});
 </script>
