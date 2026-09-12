@@ -1,18 +1,9 @@
 ---
-
+import Layout from "../layouts/Layout.astro"
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Darketomaly</title>
-	</head>
-	<body style="background-color:black; color: azure">
-		<div style="display: flex; justify-content: center; align-items: center; height: 90vh;">
-			<img src="/under_construction.jpg"  style="width: 75%; max-height: 80vh; object-fit: contain;" alt="under_construction">
-		</div>
-	</body>
-</html>
+<Layout>
+	<div style="display: flex; justify-content: center; align-items: center; height: 90vh;">
+		<img src="/under_construction.jpg"  style="width: 75%; max-height: 80vh; object-fit: contain;" alt="under_construction">
+	</div>
+</Layout>

@@ -1,0 +1,61 @@
+﻿---
+// src/components/FilmNoise.astro
+---
+
+<canvas id="film-noise" transition:persist></canvas>
+
+<script>
+    const canvas = document.getElementById('film-noise') as HTMLCanvasElement;
+    const ctx = canvas.getContext('2d');
+
+    // Low resolution canvas stretched over full screen via CSS for realistic grain
+    const width = 512;
+    const height = 512;
+    canvas.width = width;
+    canvas.height = height;
+
+    function renderNoise() {
+        if (!ctx) return;
+        const imgData = ctx.createImageData(width, height);
+        const buffer = new Uint32Array(imgData.data.buffer);
+
+        for (let i = 0; i < buffer.length; i++) {
+            // Generate random gray value (0 to 255)
+            const v = Math.floor(Math.random() * 255);
+            // Format as 32-bit pixel: Alpha (255) | Blue | Green | Red
+            buffer[i] = (255 << 24) | (v << 16) | (v << 8) | v;
+        }
+
+        ctx.putImageData(imgData, 0, 0);
+    }
+
+    // Target 24 FPS for authentic film shutter cadence
+    const fps = 24;
+    const interval = 1000 / fps;
+    let lastTime = performance.now();
+
+    function animate(currentTime: number) {
+        requestAnimationFrame(animate);
+        const delta = currentTime - lastTime;
+        if (delta > interval) {
+            lastTime = currentTime - (delta % interval);
+            renderNoise();
+        }
+    }
+
+    requestAnimationFrame(animate);
+</script>
+
+<style>
+    #film-noise {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        pointer-events: none;
+        z-index: 9999;
+        opacity: 0.12; /* Adjust noise intensity here */
+        image-rendering: pixelated;
+    }
+</style>

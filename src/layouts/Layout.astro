@@ -1,0 +1,22 @@
+﻿---
+// src/layouts/Layout.astro
+import FilmNoise from '../components/FilmNoise.astro';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Darketomaly</title>
+</head>
+<body style="background-color:black; color: azure">
+<!-- The noise plays globally here -->
+<FilmNoise />
+
+<!-- The specific page content gets injected here -->
+<slot />
+</body>
+</html>
