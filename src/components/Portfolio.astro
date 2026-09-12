@@ -71,6 +71,8 @@ import { siPlaystation, siQuest, siSteam } from "simple-icons"
 	const counter = lightbox?.querySelector<HTMLElement>(".lightbox-counter");
 	const galleryControls = lightbox?.querySelectorAll<HTMLButtonElement>("[data-gallery-index]");
 	const thumbnails = document.querySelectorAll<HTMLButtonElement>(".gallery-thumbnail");
+	const filmNoise = document.querySelector<HTMLCanvasElement>("#film-noise");
+	const filmNoiseParent = filmNoise?.parentElement;
 	let currentIndex = 0;
 	let previousDocumentOverflow = "";
 
@@ -92,6 +94,7 @@ import { siPlaystation, siQuest, siSteam } from "simple-icons"
 			showImage(Number(thumbnail.dataset.galleryIndex));
 			previousDocumentOverflow = document.documentElement.style.overflow;
 			document.documentElement.style.overflow = "hidden";
+			if (lightbox && filmNoise) lightbox.insertBefore(filmNoise, lightbox.firstChild);
 			lightbox?.showModal();
 		});
 	});
@@ -112,6 +115,7 @@ import { siPlaystation, siQuest, siSteam } from "simple-icons"
 	lightbox?.addEventListener("close", () => {
 		showImage(0);
 		document.documentElement.style.overflow = previousDocumentOverflow;
+		if (filmNoiseParent && filmNoise) filmNoiseParent.appendChild(filmNoise);
 		document.querySelector<HTMLButtonElement>(".gallery-thumbnail:focus")?.blur();
 	});
 </script>
