@@ -1,45 +1,53 @@
 ﻿---
+import { siGithub, siSteam, siX } from "simple-icons";
 ---
 
 <header class="site-header">
-	<a
-		class="google-link"
-		href="https://www.google.com/"
-		target="_blank"
-		rel="noopener noreferrer"
-		aria-label="Google"
-	>
+	<a class="social-link" href="https://github.com/darketomaly" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
 		<svg viewBox="0 0 24 24" aria-hidden="true">
-			<path fill="#4285F4" d="M21.35 12.27c0-.75-.07-1.48-.22-2.18H12v4.13h5.24a4.48 4.48 0 0 1-1.94 2.94v2.45h3.14c1.84-1.7 2.91-4.2 2.91-7.34Z" />
-			<path fill="#34A853" d="M12 21.99c2.63 0 4.84-.87 6.45-2.38l-3.14-2.45c-.87.58-1.98.92-3.31.92-2.54 0-4.7-1.72-5.47-4.03H3.29v2.53A9.75 9.75 0 0 0 12 21.99Z" />
-			<path fill="#FBBC05" d="M6.53 14.05a5.87 5.87 0 0 1 0-3.76V7.76H3.29a9.76 9.76 0 0 0 0 8.82l3.24-2.53Z" />
-			<path fill="#EA4335" d="M12 6.26c1.43 0 2.71.49 3.72 1.45l2.79-2.79C16.84 3.35 14.63 2.5 12 2.5a9.75 9.75 0 0 0-8.71 5.26l3.24 2.53C7.3 7.98 9.46 6.26 12 6.26Z" />
+			<path fill="currentColor" d={siGithub.path} />
+		</svg>
+	</a>
+	<a class="social-link" href="https://x.com/darketomaly" target="_blank" rel="noopener noreferrer" aria-label="X">
+		<svg viewBox="0 0 24 24" aria-hidden="true">
+			<path fill="currentColor" d={siX.path} />
+		</svg>
+	</a>
+	<a class="social-link" href="https://steamcommunity.com/id/darketomaly" target="_blank" rel="noopener noreferrer" aria-label="Steam">
+		<svg viewBox="0 0 24 24" aria-hidden="true">
+			<path fill="currentColor" d={siSteam.path} />
 		</svg>
 	</a>
 </header>
 
 <style>
 	.site-header {
+		display: flex;
+		gap: 0.25rem;
 		position: absolute;
 		top: 1rem;
 		right: 1rem;
 		z-index: 1;
 	}
 
-	.google-link {
+	.social-link {
 		display: inline-flex;
 		padding: 0.35rem;
 		border-radius: 50%;
+		color: #b8c1c8;
+		transition: background-color 150ms ease, color 150ms ease;
 	}
 
-	.google-link:hover,
-	.google-link:focus-visible {
+	.social-link:hover,
+	.social-link:focus-visible {
 		background: rgb(255 255 255 / 0.12);
+		outline: 2px solid currentColor;
+		outline-offset: 2px;
 	}
 
 	svg {
 		display: block;
-		width: 1.5rem;
-		height: 1.5rem;
+		width: 1.35rem;
+		height: 1.35rem;
 	}
 </style>
