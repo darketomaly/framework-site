@@ -15,8 +15,10 @@ import Layout from "../layouts/Layout.astro"
 
 <style>
 	.introduction {
-		display: flex;
-		align-items: center;
+		display: grid;
+		grid-template-columns: 10rem minmax(0, 1fr);
+		align-items: stretch;
+		align-content: center;
 		gap: 1.25rem;
 		width: min(90%, 40rem);
 		min-height: 90vh;
@@ -24,9 +26,8 @@ import Layout from "../layouts/Layout.astro"
 	}
 
 	.profile-picture {
-		width: 5rem;
-		height: 5rem;
-		flex: 0 0 5rem;
+		width: 10rem;
+		height: auto;
 		border-radius: 13px;
 		object-fit: cover;
 	}
@@ -46,13 +47,15 @@ import Layout from "../layouts/Layout.astro"
 
 	@media (max-width: 30rem) {
 		.introduction {
+			grid-template-columns: 1fr;
+			align-items: stretch;
 			gap: 1rem;
 		}
 
 		.profile-picture {
-			width: 4rem;
-			height: 4rem;
-			flex-basis: 4rem;
+			justify-self: center;
+			width: 8rem;
+			height: 8rem;
 		}
 	}
 </style>
