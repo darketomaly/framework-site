@@ -9,6 +9,12 @@ import { siPlaystation, siQuest, siSteam } from "simple-icons"
 		<img class="game-logo" src="/sketch.png" alt="Placeholder game logo">
 		<div class="game-details">
 			<h3>Placeholder Game</h3>
+			<p class="game-date">2022–2024</p>
+			<p class="studio">Studio Name</p>
+			<ul class="roles" aria-label="Roles on Placeholder Game">
+				<li>Gameplay Programmer <span>2022–2023</span></li>
+				<li>Lead Programmer <span>2023–2024</span></li>
+			</ul>
 			<p>A placeholder description for the first game in the portfolio. More details will be added soon.</p>
 			<nav class="store-links" aria-label="Placeholder Game store pages">
 				<a class="store-link" href="https://store.steampowered.com/" target="_blank" rel="noopener noreferrer" aria-label="Steam">
@@ -59,6 +65,32 @@ import { siPlaystation, siQuest, siSteam } from "simple-icons"
 	h3 {
 		margin: 0;
 		font-size: 1.35rem;
+	}
+
+	.game-date,
+	.studio {
+		margin-top: 0.2rem;
+	}
+
+	.game-date {
+		color: #b8c1c8;
+	}
+
+	.studio {
+		color: #b8c1c8;
+	}
+
+	.roles {
+		display: grid;
+		gap: 0.15rem;
+		margin: 0.5rem 0 0;
+		padding: 0;
+		color: #b8c1c8;
+		list-style: none;
+	}
+
+	.roles span {
+		color: #7f8a91;
 	}
 
 	p {
