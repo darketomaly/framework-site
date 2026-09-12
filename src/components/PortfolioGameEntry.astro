@@ -88,14 +88,20 @@ const galleryId = `gallery-${title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`
 		const filmNoiseParent = filmNoise?.parentElement;
 		let currentIndex = 0;
 		let previousDocumentOverflow = "";
+		let isClosing = false;
 
-		const showImage = (index: number) => {
+		const showImage = (index: number, direction = 0) => {
 			if (!lightboxImage || !counter || !galleryControls) return;
 
 			currentIndex = (index + thumbnails.length) % thumbnails.length;
+			lightboxImage.classList.remove("slide-next", "slide-previous");
 			lightboxImage.src = thumbnails[currentIndex].querySelector("img")?.src ?? "";
 			lightboxImage.alt = thumbnails[currentIndex].querySelector("img")?.alt ?? "";
 			counter.textContent = `${currentIndex + 1} / ${thumbnails.length}`;
+			if (direction) {
+				void lightboxImage.offsetWidth;
+				lightboxImage.classList.add(direction > 0 ? "slide-next" : "slide-previous");
+			}
 
 			galleryControls.forEach((control) => {
 				const isCurrent = Number(control.dataset.galleryIndex) === currentIndex;
@@ -110,25 +116,44 @@ const galleryId = `gallery-${title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`
 				document.documentElement.style.overflow = "hidden";
 				if (lightbox && filmNoise) lightbox.insertBefore(filmNoise, lightbox.firstChild);
 				lightbox?.showModal();
+				lightbox?.classList.add("is-opening");
+				window.setTimeout(() => lightbox?.classList.remove("is-opening"), 320);
 			});
 		});
 
-		lightbox?.querySelector<HTMLButtonElement>(".lightbox-close")?.addEventListener("click", () => lightbox.close());
-		lightbox?.querySelector<HTMLButtonElement>(".lightbox-previous")?.addEventListener("click", () => showImage(currentIndex - 1));
-		lightbox?.querySelector<HTMLButtonElement>(".lightbox-next")?.addEventListener("click", () => showImage(currentIndex + 1));
+		const closeLightbox = () => {
+			if (!lightbox || isClosing) return;
+			isClosing = true;
+			lightbox.classList.add("is-closing");
+			window.setTimeout(() => lightbox.close(), 180);
+		};
+
+		lightbox?.querySelector<HTMLButtonElement>(".lightbox-close")?.addEventListener("click", closeLightbox);
+		lightbox?.querySelector<HTMLButtonElement>(".lightbox-previous")?.addEventListener("click", () => showImage(currentIndex - 1, -1));
+		lightbox?.querySelector<HTMLButtonElement>(".lightbox-next")?.addEventListener("click", () => showImage(currentIndex + 1, 1));
 
 		galleryControls?.forEach((control) => {
-			control.addEventListener("click", () => showImage(Number(control.dataset.galleryIndex)));
+			control.addEventListener("click", () => {
+				const nextIndex = Number(control.dataset.galleryIndex);
+				showImage(nextIndex, nextIndex > currentIndex ? 1 : -1);
+			});
 		});
 
 		lightbox?.addEventListener("keydown", (event) => {
-			if (event.key === "ArrowLeft") showImage(currentIndex - 1);
-			if (event.key === "ArrowRight") showImage(currentIndex + 1);
+			if (event.key === "ArrowLeft") showImage(currentIndex - 1, -1);
+			if (event.key === "ArrowRight") showImage(currentIndex + 1, 1);
+		});
+
+		lightbox?.addEventListener("cancel", (event) => {
+			event.preventDefault();
+			closeLightbox();
 		});
 
 		lightbox?.addEventListener("close", () => {
 			showImage(0);
 			document.documentElement.style.overflow = previousDocumentOverflow;
+			lightbox.classList.remove("is-opening", "is-closing");
+			isClosing = false;
 			if (filmNoiseParent && filmNoise) filmNoiseParent.appendChild(filmNoise);
 			gallery.querySelector<HTMLButtonElement>(".gallery-thumbnail:focus")?.blur();
 		});
@@ -238,6 +263,14 @@ const galleryId = `gallery-${title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`
 		display: grid;
 	}
 
+	.lightbox[open].is-opening {
+		animation: lightbox-open 320ms ease both;
+	}
+
+	.lightbox[open].is-closing {
+		animation: lightbox-close 180ms ease both;
+	}
+
 	.lightbox::backdrop {
 		background: rgb(0 0 0 / 0.85);
 	}
@@ -256,6 +289,18 @@ const galleryId = `gallery-${title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`
 		max-width: 100%;
 		max-height: 100%;
 		object-fit: contain;
+	}
+
+	.lightbox[open].is-opening .lightbox-image {
+		animation: image-expand 320ms ease both;
+	}
+
+	.lightbox-image.slide-next {
+		animation: image-slide-next 220ms ease both;
+	}
+
+	.lightbox-image.slide-previous {
+		animation: image-slide-previous 220ms ease both;
 	}
 
 	.lightbox-close,
@@ -325,6 +370,61 @@ const galleryId = `gallery-${title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`
 		background: currentColor;
 	}
 
+	@keyframes lightbox-open {
+		from {
+			opacity: 0;
+			transform: scale(0.98);
+		}
+		to {
+			opacity: 1;
+			transform: scale(1);
+		}
+	}
+
+	@keyframes lightbox-close {
+		from {
+			opacity: 1;
+			transform: scale(1);
+		}
+		to {
+			opacity: 0;
+			transform: scale(0.98);
+		}
+	}
+
+	@keyframes image-expand {
+		from {
+			opacity: 0;
+			transform: scale(0.82);
+		}
+		to {
+			opacity: 1;
+			transform: scale(1);
+		}
+	}
+
+	@keyframes image-slide-next {
+		from {
+			opacity: 0;
+			transform: translateX(2rem);
+		}
+		to {
+			opacity: 1;
+			transform: translateX(0);
+		}
+	}
+
+	@keyframes image-slide-previous {
+		from {
+			opacity: 0;
+			transform: translateX(-2rem);
+		}
+		to {
+			opacity: 1;
+			transform: translateX(0);
+		}
+	}
+
 	.store-links {
 		display: flex;
 		flex-wrap: wrap;
@@ -363,6 +463,16 @@ const galleryId = `gallery-${title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`
 			justify-self: center;
 			width: 8rem;
 			height: 8rem;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.lightbox[open].is-opening,
+		.lightbox[open].is-closing,
+		.lightbox[open].is-opening .lightbox-image,
+		.lightbox-image.slide-next,
+		.lightbox-image.slide-previous {
+			animation: none;
 		}
 	}
 </style>
