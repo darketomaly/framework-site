@@ -1,6 +1,7 @@
 ﻿---
 // src/layouts/Layout.astro
 import FilmNoise from '../components/FilmNoise.astro';
+import Header from './Header.astro';
 
 // src/layouts/Layout.astro
 import '@fontsource/rajdhani';
@@ -16,6 +17,8 @@ import '@fontsource/rajdhani';
     <title>Darketomaly</title>
 </head>
 <body style="background-color:black; color: azure">
+<Header />
+
 <!-- The noise plays globally here -->
 <FilmNoise />
 
