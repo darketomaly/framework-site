@@ -1,0 +1,135 @@
+<section id="contact" class="contact-section" aria-labelledby="contact-heading">
+	<h2 id="contact-heading">聯絡我 Contact</h2>
+	<form id="contact-form" action="https://formsubmit.co/ajax/0b05b4a17f2ea8f4e943846f55a5a13c" method="POST">
+		<input type="hidden" name="_subject" value="New message from darketomaly.com">
+		<input type="hidden" name="_captcha" value="true">
+		<input type="hidden" name="_template" value="table">
+		<input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+		<label for="name">姓名 Name <span>(選填 optional)</span></label>
+		<input id="name" name="name" type="text" autocomplete="name">
+
+		<label for="email">電郵地址 Email address</label>
+		<input id="email" name="email" type="email" autocomplete="email" required>
+
+		<label for="message">留言內容 Message</label>
+		<textarea id="message" name="message" rows="6" required></textarea>
+
+		<button type="submit">發送訊息 Send message</button>
+		<p class="form-status" role="status" aria-live="polite"></p>
+	</form>
+</section>
+
+<script>
+	const form = document.querySelector<HTMLFormElement>("#contact-form");
+	const status = document.querySelector<HTMLParagraphElement>(".form-status");
+
+	form?.addEventListener("submit", async (event) => {
+		event.preventDefault();
+
+		const button = form.querySelector<HTMLButtonElement>("button[type='submit']");
+		if (button) button.disabled = true;
+		if (status) status.textContent = "傳送中 Sending...";
+
+		try {
+			const response = await fetch(form.action, {
+				method: "POST",
+				body: new FormData(form),
+				headers: { Accept: "application/json" },
+			});
+
+			if (!response.ok) throw new Error("聯絡表格提交失敗。 The contact form request failed.");
+
+			form.reset();
+			if (status) status.textContent = "訊息已傳送，多謝！ Message sent. Thank you!";
+		} catch (error) {
+			if (status) status.textContent = "無法傳送訊息，請重試。 Unable to send the message. Please try again.";
+			console.error(error);
+		} finally {
+			if (button) button.disabled = false;
+		}
+	});
+</script>
+
+<style>
+	.contact-section {
+		width: min(90%, 32rem);
+		margin: 0 auto 4rem;
+	}
+
+	h2 {
+		margin: 0 0 1rem;
+		font-size: 1.5rem;
+	}
+
+	form {
+		display: grid;
+		gap: 0.45rem;
+	}
+
+	label {
+		margin-top: 0.6rem;
+		color: #b8c1c8;
+	}
+
+	label span {
+		opacity: 0.7;
+	}
+
+	input,
+	textarea {
+		box-sizing: border-box;
+		width: 100%;
+		border: 1px solid #38434a;
+		border-radius: 6px;
+		padding: 0.65rem 0.75rem;
+		background: #101416;
+		color: azure;
+		font: inherit;
+	}
+
+	input:focus,
+	textarea:focus {
+		border-color: #b8c1c8;
+		outline: 2px solid rgb(184 193 200 / 0.25);
+		outline-offset: 1px;
+	}
+
+	textarea {
+		resize: vertical;
+	}
+
+	button {
+		width: fit-content;
+		margin-top: 0.75rem;
+		border: 1px solid #b8c1c8;
+		border-radius: 6px;
+		padding: 0.6rem 1rem;
+		background: transparent;
+		color: #b8c1c8;
+		font: inherit;
+		cursor: pointer;
+	}
+
+	button:hover,
+	button:focus-visible {
+		background: #b8c1c8;
+		color: #101416;
+	}
+
+	button:disabled {
+		cursor: wait;
+		opacity: 0.6;
+	}
+
+	.form-status {
+		min-height: 1.6em;
+		margin: 0.5rem 0 0;
+		color: #b8c1c8;
+	}
+
+	[name="_honey"] {
+		position: absolute;
+		left: -9999px;
+	}
+</style>

@@ -1,0 +1,72 @@
+<div class="introduction">
+	<img class="profile-picture" src="/darketomaly_profile_picture.png" alt="Darketomaly profile picture">
+	<div>
+		<h1>Darketomaly</h1>
+		<p>遊戲開發人員，擁有5年專業製作同運送電子遊戲經驗。現就讀香港理工大學創新多媒體娛樂碩士。</p>
+		<p>Game developer with 5 years of professional experience building and shipping video games. Currently studying MSc in Innovative Multimedia Entertainment at The Hong Kong Polytechnic University.</p>
+		<a class="contact-button" href="#contact">聯絡我 Contact</a>
+	</div>
+</div>
+
+<style>
+	.introduction {
+		display: grid;
+		grid-template-columns: 10rem minmax(0, 1fr);
+		align-items: stretch;
+		align-content: center;
+		gap: 1.25rem;
+		width: min(90%, 40rem);
+		padding-top: 7rem;
+		margin: 0 auto 2rem;
+	}
+
+	.profile-picture {
+		width: 10rem;
+		height: auto;
+		border-radius: 13px;
+		object-fit: cover;
+	}
+
+	h1 {
+		margin: 0;
+		font-size: clamp(1.75rem, 5vw, 2.5rem);
+	}
+
+	p {
+		max-width: 32rem;
+		margin: 0.4rem 0 0;
+		color: #b8c1c8;
+		font-size: 1rem;
+		line-height: 1.6;
+	}
+
+	.contact-button {
+		display: inline-block;
+		margin-top: 1rem;
+		border: 1px solid #b8c1c8;
+		border-radius: 6px;
+		padding: 0.6rem 1rem;
+		color: #b8c1c8;
+		text-decoration: none;
+	}
+
+	.contact-button:hover,
+	.contact-button:focus-visible {
+		background: #b8c1c8;
+		color: #101416;
+	}
+
+	@media (max-width: 30rem) {
+		.introduction {
+			grid-template-columns: 1fr;
+			align-items: stretch;
+			gap: 1rem;
+		}
+
+		.profile-picture {
+			justify-self: center;
+			width: 8rem;
+			height: 8rem;
+		}
+	}
+</style>
