@@ -12,16 +12,21 @@ interface Image {
 interface Store {
 	label: string
 	href: string
-	icon: {
+	icon?: {
 		path: string
 	}
+}
+
+interface Description {
+	cantonese: string
+	english: string
 }
 
 interface Props {
 	title: string
 	dateRange: string
 	studio: string
-	description: string
+	description: Description
 	roles: Role[]
 	images: Image[]
 	stores: Store[]
@@ -40,7 +45,7 @@ const galleryId = `gallery-${title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`
 		<ul class="roles" aria-label={`Roles on ${title}`}>
 			{roles.map((role) => <li>{role.title} <span>{role.years}</span></li>)}
 		</ul>
-		<p>{description}</p>
+		<p>{description.cantonese}<br>{description.english}</p>
 		<div class="game-gallery" aria-label={`${title} screenshots`}>
 			{images.map((image, index) => (
 				<button class="gallery-thumbnail" type="button" data-gallery-index={index} aria-label={`Open ${image.alt}`}>
@@ -51,9 +56,13 @@ const galleryId = `gallery-${title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`
 		<nav class="store-links" aria-label={`${title} store pages`}>
 			{stores.map((store) => (
 				<a class="store-link" href={store.href} target="_blank" rel="noopener noreferrer" aria-label={store.label}>
-					<svg viewBox="0 0 24 24" aria-hidden="true">
-						<path fill="currentColor" d={store.icon.path} />
-					</svg>
+					{store.icon ? (
+						<svg viewBox="0 0 24 24" aria-hidden="true">
+							<path fill="currentColor" d={store.icon.path} />
+						</svg>
+					) : (
+						<span class="store-text" aria-hidden="true">PICO</span>
+					)}
 				</a>
 			))}
 		</nav>
@@ -458,6 +467,12 @@ const galleryId = `gallery-${title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`
 		display: block;
 		width: 1.35rem;
 		height: 1.35rem;
+	}
+
+	.store-text {
+		font-size: 0.55rem;
+		font-weight: 700;
+		line-height: 1.35rem;
 	}
 
 	@media (max-width: 30rem) {

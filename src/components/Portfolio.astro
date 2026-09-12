@@ -10,7 +10,10 @@ import PortfolioGameEntry from "./PortfolioGameEntry.astro"
 		title="Project Castaway"
 		dateRange="2023–2026"
 		studio="Mardonpol Inc"
-		description="以太平洋為場景嘅合作製作生存遊戲。 Co-op crafting survival game set in the pacific."
+		description={{
+			cantonese: "以太平洋為場景嘅合作製作生存遊戲。",
+			english: "Co-op crafting survival game set in the pacific.",
+		}}
 		roles={[
 			{ title: "主要開發人員 Lead Developer", years: "2023–2024" },
 			{ title: "技術總監 Technical Director", years: "2024–2026" },
@@ -31,7 +34,10 @@ import PortfolioGameEntry from "./PortfolioGameEntry.astro"
 		title="Alvo VR"
 		dateRange="2021–2023"
 		studio="OutsideIn Entertainment LLC"
-		description="快節奏嘅 VR 軍事射擊遊戲，有合作、 PvE 同 PvP 模式。 Fast paced VR military shooter featuring co-op, PvE, and PvP modes."
+		description={{
+			cantonese: "快節奏嘅 VR 軍事射擊遊戲，有合作、 PvE 同 PvP 模式。",
+			english: "Fast paced VR military shooter featuring co-op, PvE, and PvP modes.",
+		}}
 		roles={[
 			{ title: "內容開發人員 Content Developer", years: "2021–2023" },
 			{ title: "主要開發人員 Lead Developer", years: "2023–2023" },
@@ -45,6 +51,7 @@ import PortfolioGameEntry from "./PortfolioGameEntry.astro"
 			{ label: "Steam", href: "https://store.steampowered.com/", icon: siSteam },
 			{ label: "PlayStation", href: "https://www.playstation.com/", icon: siPlaystation },
 			{ label: "Meta Quest", href: "https://www.meta.com/experiences/quest/", icon: siQuest },
+			{ label: "PICO Store", href: "https://www.picoxr.com/global/games/alvo-vr" },
 		]}
 	/>
 </section>
