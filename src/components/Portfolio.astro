@@ -7,13 +7,32 @@ import PortfolioGameEntry from "./PortfolioGameEntry.astro"
 	<h2 id="portfolio-heading">Portfolio</h2>
 
 	<PortfolioGameEntry
-		title="Placeholder Game"
-		dateRange="2022–2024"
-		studio="Studio Name"
-		description="A placeholder description for the first game in the portfolio. More details will be added soon."
+		title="Project Castaway"
+		dateRange="2023–2026"
+		studio="Mardonpol Inc"
+		description="Co-op crafting survival game set in the pacific."
 		roles={[
-			{ title: "Gameplay Programmer", years: "2022–2023" },
-			{ title: "Lead Programmer", years: "2023–2024" },
+			{ title: "Lead Developer", years: "2023–2024" },
+			{ title: "Technical Director", years: "2024–2026" },
+		]}
+		images={[
+			{ src: "/sketch.png", alt: "Placeholder Game screenshot one" },
+			{ src: "/sketch.png", alt: "Placeholder Game screenshot two" },
+			{ src: "/sketch.png", alt: "Placeholder Game screenshot three" },
+		]}
+		stores={[
+			{ label: "Steam", href: "https://store.steampowered.com/", icon: siSteam },
+		]}
+	/>
+
+	<PortfolioGameEntry
+		title="Alvo VR"
+		dateRange="2021–2023"
+		studio="OutsideIn Entertainment LLC"
+		description="Fast paced VR military shooter with multiple game modes."
+		roles={[
+			{ title: "Content Developer", years: "2021–2023" },
+			{ title: "Lead Developer", years: "2023–2023" },
 		]}
 		images={[
 			{ src: "/sketch.png", alt: "Placeholder Game screenshot one" },
