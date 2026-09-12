@@ -9,10 +9,13 @@ import Layout from "../layouts/Layout.astro"
 			<h1>Darketomaly</h1>
 			<p>遊戲開發人員，擁有5年專業製作同運送電子遊戲經驗。現就讀香港理工大學創新多媒體娛樂碩士。</p>
 			<p>Game developer with 5 years of professional experience building and shipping video games. Currently studying MSc in Innovative Multimedia Entertainment at The Hong Kong Polytechnic University.</p>
+			<a class="contact-button" href="#contact">Contact</a>
 		</div>
 	</div>
 
-	<section class="contact-section" aria-labelledby="contact-heading">
+	<section class="portfolio-placeholder" aria-label="Portfolio"></section>
+
+	<section id="contact" class="contact-section" aria-labelledby="contact-heading">
 		<h2 id="contact-heading">Contact</h2>
 		<form id="contact-form" action="https://formsubmit.co/ajax/0b05b4a17f2ea8f4e943846f55a5a13c" method="POST">
 			<input type="hidden" name="_subject" value="New message from darketomaly.com">
@@ -67,6 +70,10 @@ import Layout from "../layouts/Layout.astro"
 </script>
 
 <style>
+	:global(html) {
+		scroll-behavior: smooth;
+	}
+
 	.introduction {
 		display: grid;
 		grid-template-columns: 10rem minmax(0, 1fr);
@@ -96,6 +103,28 @@ import Layout from "../layouts/Layout.astro"
 		color: #b8c1c8;
 		font-size: 1rem;
 		line-height: 1.6;
+	}
+
+	.contact-button {
+		display: inline-block;
+		margin-top: 1rem;
+		border: 1px solid #b8c1c8;
+		border-radius: 6px;
+		padding: 0.6rem 1rem;
+		color: #b8c1c8;
+		text-decoration: none;
+	}
+
+	.contact-button:hover,
+	.contact-button:focus-visible {
+		background: #b8c1c8;
+		color: #101416;
+	}
+
+	.portfolio-placeholder {
+		min-height: 12rem;
+		width: min(90%, 40rem);
+		margin: 0 auto 2rem;
 	}
 
 	.contact-section {
