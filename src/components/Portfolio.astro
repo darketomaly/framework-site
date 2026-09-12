@@ -1,9 +1,111 @@
-<section class="portfolio-placeholder" aria-label="Portfolio"></section>
+---
+import { siPlaystation, siQuest, siSteam } from "simple-icons"
+---
+
+<section class="portfolio-section" aria-labelledby="portfolio-heading">
+	<h2 id="portfolio-heading">Portfolio</h2>
+
+	<article class="game">
+		<img class="game-logo" src="/sketch.png" alt="Placeholder game logo">
+		<div class="game-details">
+			<h3>Placeholder Game</h3>
+			<p>A placeholder description for the first game in the portfolio. More details will be added soon.</p>
+			<nav class="store-links" aria-label="Placeholder Game store pages">
+				<a class="store-link" href="https://store.steampowered.com/" target="_blank" rel="noopener noreferrer" aria-label="Steam">
+					<svg viewBox="0 0 24 24" aria-hidden="true">
+						<path fill="currentColor" d={siSteam.path} />
+					</svg>
+				</a>
+				<a class="store-link" href="https://www.playstation.com/" target="_blank" rel="noopener noreferrer" aria-label="PlayStation">
+					<svg viewBox="0 0 24 24" aria-hidden="true">
+						<path fill="currentColor" d={siPlaystation.path} />
+					</svg>
+				</a>
+				<a class="store-link" href="https://www.meta.com/experiences/quest/" target="_blank" rel="noopener noreferrer" aria-label="Meta Quest">
+					<svg viewBox="0 0 24 24" aria-hidden="true">
+						<path fill="currentColor" d={siQuest.path} />
+					</svg>
+				</a>
+			</nav>
+		</div>
+	</article>
+</section>
 
 <style>
-	.portfolio-placeholder {
-		min-height: 12rem;
+	.portfolio-section {
 		width: min(90%, 40rem);
 		margin: 0 auto 2rem;
+	}
+
+	h2 {
+		margin: 0 0 1rem;
+		font-size: 1.5rem;
+	}
+
+	.game {
+		display: grid;
+		grid-template-columns: 10rem minmax(0, 1fr);
+		align-items: stretch;
+		gap: 1.25rem;
+	}
+
+	.game-logo {
+		width: 10rem;
+		height: 10rem;
+		border-radius: 13px;
+		object-fit: cover;
+	}
+
+	h3 {
+		margin: 0;
+		font-size: 1.35rem;
+	}
+
+	p {
+		max-width: 32rem;
+		margin: 0.4rem 0 0;
+		color: #b8c1c8;
+		line-height: 1.6;
+	}
+
+	.store-links {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.25rem;
+		margin-top: 1rem;
+	}
+
+	.store-link {
+		display: inline-flex;
+		padding: 0.35rem;
+		border-radius: 50%;
+		color: #b8c1c8;
+		transition: background-color 150ms ease, color 150ms ease;
+	}
+
+	.store-link:hover,
+	.store-link:focus-visible {
+		background: rgb(255 255 255 / 0.12);
+		outline: 2px solid currentColor;
+		outline-offset: 2px;
+	}
+
+	svg {
+		display: block;
+		width: 1.35rem;
+		height: 1.35rem;
+	}
+
+	@media (max-width: 30rem) {
+		.game {
+			grid-template-columns: 1fr;
+			gap: 1rem;
+		}
+
+		.game-logo {
+			justify-self: center;
+			width: 8rem;
+			height: 8rem;
+		}
 	}
 </style>
