@@ -117,7 +117,7 @@ const galleryId = `gallery-${title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`
 				if (lightbox && filmNoise) lightbox.insertBefore(filmNoise, lightbox.firstChild);
 				lightbox?.showModal();
 				lightbox?.classList.add("is-opening");
-				window.setTimeout(() => lightbox?.classList.remove("is-opening"), 320);
+				window.setTimeout(() => lightbox?.classList.remove("is-opening"), 520);
 			});
 		});
 
@@ -125,7 +125,7 @@ const galleryId = `gallery-${title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`
 			if (!lightbox || isClosing) return;
 			isClosing = true;
 			lightbox.classList.add("is-closing");
-			window.setTimeout(() => lightbox.close(), 180);
+			window.setTimeout(() => lightbox.close(), 320);
 		};
 
 		lightbox?.querySelector<HTMLButtonElement>(".lightbox-close")?.addEventListener("click", closeLightbox);
@@ -264,11 +264,11 @@ const galleryId = `gallery-${title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`
 	}
 
 	.lightbox[open].is-opening {
-		animation: lightbox-open 320ms ease both;
+		animation: lightbox-open 500ms cubic-bezier(0.22, 1, 0.36, 1) both;
 	}
 
 	.lightbox[open].is-closing {
-		animation: lightbox-close 180ms ease both;
+		animation: lightbox-close 320ms cubic-bezier(0.64, 0, 0.78, 0) both;
 	}
 
 	.lightbox::backdrop {
@@ -292,15 +292,15 @@ const galleryId = `gallery-${title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`
 	}
 
 	.lightbox[open].is-opening .lightbox-image {
-		animation: image-expand 320ms ease both;
+		animation: image-expand 500ms cubic-bezier(0.22, 1, 0.36, 1) both;
 	}
 
 	.lightbox-image.slide-next {
-		animation: image-slide-next 220ms ease both;
+		animation: image-slide-next 380ms cubic-bezier(0.22, 1, 0.36, 1) both;
 	}
 
 	.lightbox-image.slide-previous {
-		animation: image-slide-previous 220ms ease both;
+		animation: image-slide-previous 380ms cubic-bezier(0.22, 1, 0.36, 1) both;
 	}
 
 	.lightbox-close,
@@ -395,7 +395,7 @@ const galleryId = `gallery-${title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`
 	@keyframes image-expand {
 		from {
 			opacity: 0;
-			transform: scale(0.82);
+			transform: scale(0.58);
 		}
 		to {
 			opacity: 1;
@@ -406,7 +406,7 @@ const galleryId = `gallery-${title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`
 	@keyframes image-slide-next {
 		from {
 			opacity: 0;
-			transform: translateX(2rem);
+			transform: translateX(5rem);
 		}
 		to {
 			opacity: 1;
@@ -417,7 +417,7 @@ const galleryId = `gallery-${title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`
 	@keyframes image-slide-previous {
 		from {
 			opacity: 0;
-			transform: translateX(-2rem);
+			transform: translateX(-5rem);
 		}
 		to {
 			opacity: 1;
