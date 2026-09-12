@@ -1,11 +1,20 @@
-﻿{
+{
   "name": "framework-site",
-  "version": "1.0.0",
-  "main": "server.js",
+  "type": "module",
+  "version": "0.0.1",
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "scripts": {
-    "start": "node server.js"
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
   },
   "dependencies": {
-    "express": "^4.19.2"
+    "astro": "^7.3.2"
+  },
+  "allowScripts": {
+    "esbuild": true
   }
 }
