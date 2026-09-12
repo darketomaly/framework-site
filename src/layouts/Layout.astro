@@ -1,6 +1,9 @@
 ﻿---
 // src/layouts/Layout.astro
 import FilmNoise from '../components/FilmNoise.astro';
+
+// src/layouts/Layout.astro
+import '@fontsource/rajdhani';
 ---
 
 <!DOCTYPE html>
@@ -20,3 +23,9 @@ import FilmNoise from '../components/FilmNoise.astro';
 <slot />
 </body>
 </html>
+
+<style>
+    body {
+        font-family: 'rajdhani', sans-serif;
+    }
+</style>/

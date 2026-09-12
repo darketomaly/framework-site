@@ -3,7 +3,55 @@ import Layout from "../layouts/Layout.astro"
 ---
 
 <Layout>
-	<div style="display: flex; justify-content: center; align-items: center; height: 90vh;">
-		<img src="/under_construction.jpg"  style="width: 75%; max-height: 80vh; object-fit: contain;" alt="under_construction">
+	<div class="introduction">
+		<img class="profile-picture" src="/favicon.ico" alt="Darketomaly profile picture">
+		<div>
+			<h1>Darketomaly</h1>
+			<p>Game developer with 5 years of professional experience building and shipping video games.</p>
+		</div>
 	</div>
 </Layout>
+
+<style>
+	.introduction {
+		display: flex;
+		align-items: center;
+		gap: 1.25rem;
+		width: min(90%, 40rem);
+		min-height: 90vh;
+		margin: 0 auto;
+	}
+
+	.profile-picture {
+		width: 5rem;
+		height: 5rem;
+		flex: 0 0 5rem;
+		border-radius: 13px;
+		object-fit: cover;
+	}
+
+	h1 {
+		margin: 0;
+		font-size: clamp(1.75rem, 5vw, 2.5rem);
+	}
+
+	p {
+		max-width: 32rem;
+		margin: 0.4rem 0 0;
+		color: #b8c1c8;
+		font-size: 1rem;
+		line-height: 1.6;
+	}
+
+	@media (max-width: 30rem) {
+		.introduction {
+			gap: 1rem;
+		}
+
+		.profile-picture {
+			width: 4rem;
+			height: 4rem;
+			flex-basis: 4rem;
+		}
+	}
+</style>
