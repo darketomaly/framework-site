@@ -24,6 +24,7 @@ interface Description {
 
 interface Props {
 	title: string
+	logo: Image
 	dateRange: string
 	studio: string
 	description: Description
@@ -32,12 +33,12 @@ interface Props {
 	stores: Store[]
 }
 
-const { title, dateRange, studio, description, roles, images, stores } = Astro.props
+const { title, logo, dateRange, studio, description, roles, images, stores } = Astro.props
 const galleryId = `gallery-${title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`
 ---
 
 <article class="game" data-gallery={galleryId}>
-	<img class="game-logo" src="/sketch.png" alt={`${title} logo placeholder`}>
+	<img class="game-logo" src={logo.src} alt={logo.alt}>
 	<div class="game-details">
 		<h3>{title}</h3>
 		<p class="game-date">{dateRange}</p>
@@ -181,7 +182,7 @@ const galleryId = `gallery-${title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`
 		width: 10rem;
 		height: 10rem;
 		border-radius: 13px;
-		object-fit: cover;
+		object-fit: contain;
 	}
 
 	h3 {
