@@ -3,6 +3,7 @@ const siteUrl = 'https://darketomaly.com';
 const title = 'Darketomaly';
 const socialTitle = 'Darketomaly | Game Developer and Technical Director';
 const description = 'Darketomaly is a Hong Kong game developer who worked on Alvo VR as Content Developer and Lead Developer, and on Project Castaway as Lead Developer and Technical Director. He is studying for an MSc in Innovative Multimedia Entertainment at The Hong Kong Polytechnic University.';
+const socialDescription = 'Game developer with 5 years of professional experience building and shipping video games. Currently studying MSc in Innovative Multimedia Entertainment at The Hong Kong Polytechnic University.';
 const image = `${siteUrl}/darketomaly_profile_picture.png`;
 
 ---
@@ -12,13 +13,13 @@ const image = `${siteUrl}/darketomaly_profile_picture.png`;
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Darketomaly" />
 <meta property="og:title" content={socialTitle} />
-<meta property="og:description" content={description} />
+<meta property="og:description" content={socialDescription} />
 <meta property="og:url" content={siteUrl} />
 <meta property="og:image" content={image} />
 <meta property="og:image:alt" content="Darketomaly profile picture" />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content={socialTitle} />
-<meta name="twitter:description" content={description} />
+<meta name="twitter:description" content={socialDescription} />
 <meta name="twitter:image" content={image} />
 <title>{title}</title>
 <script type="application/ld+json" set:html={JSON.stringify({
