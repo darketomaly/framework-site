@@ -1,0 +1,83 @@
+---
+const siteUrl = 'https://darketomaly.com';
+const title = 'Darketomaly';
+const socialTitle = 'Darketomaly | Game Developer and Technical Director';
+const description = 'Darketomaly is a Hong Kong game developer who worked on Alvo VR as Content Developer and Lead Developer, and on Project Castaway as Lead Developer and Technical Director. He is studying for an MSc in Innovative Multimedia Entertainment at The Hong Kong Polytechnic University.';
+const image = `${siteUrl}/darketomaly_profile_picture.png`;
+
+---
+
+<meta name="description" content={description} />
+<link rel="canonical" href={siteUrl} />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Darketomaly" />
+<meta property="og:title" content={socialTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={siteUrl} />
+<meta property="og:image" content={image} />
+<meta property="og:image:alt" content="Darketomaly profile picture" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content={socialTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={image} />
+<title>{title}</title>
+<script type="application/ld+json" set:html={JSON.stringify({
+	'@context': 'https://schema.org',
+	'@type': 'Person',
+	'@id': `${siteUrl}/#person`,
+	name: 'Darketomaly',
+	url: siteUrl,
+	image,
+	jobTitle: 'Game Developer and Technical Director',
+	description,
+	hasOccupation: [
+		{
+			'@type': 'Occupation',
+			name: 'Content Developer',
+			occupationLocation: { '@type': 'Organization', name: 'OutsideIn Entertainment LLC' },
+			description: 'Content Developer on Alvo VR.',
+		},
+		{
+			'@type': 'Occupation',
+			name: 'Lead Developer',
+			occupationLocation: { '@type': 'Organization', name: 'OutsideIn Entertainment LLC' },
+			description: 'Lead Developer on Alvo VR.',
+		},
+		{
+			'@type': 'Occupation',
+			name: 'Lead Developer',
+			occupationLocation: { '@type': 'Organization', name: 'Mardonpol Inc' },
+			description: 'Lead Developer on Project Castaway.',
+		},
+		{
+			'@type': 'Occupation',
+			name: 'Technical Director',
+			occupationLocation: { '@type': 'Organization', name: 'Mardonpol Inc' },
+			description: 'Technical Director on Project Castaway.',
+		},
+	],
+	alumniOf: {
+		'@type': 'CollegeOrUniversity',
+		name: 'The Hong Kong Polytechnic University',
+	},
+	educationalCredential: {
+		'@type': 'EducationalOccupationalCredential',
+		credentialCategory: 'Master of Science',
+		name: 'MSc in Innovative Multimedia Entertainment',
+		recognizedBy: {
+			'@type': 'CollegeOrUniversity',
+			name: 'The Hong Kong Polytechnic University',
+		},
+	},
+	sameAs: [
+		'https://github.com/darketomaly',
+		'https://x.com/darketomaly',
+		'https://steamcommunity.com/id/darketomaly',
+	],
+	knowsAbout: [
+		'Game development',
+		'Technical direction',
+		'Virtual reality games',
+		'Video game production',
+	],
+})} />
