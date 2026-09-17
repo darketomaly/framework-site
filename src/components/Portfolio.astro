@@ -69,15 +69,16 @@ import PortfolioGameEntry from "./PortfolioGameEntry.astro"
 	const portfolioBackground = document.querySelector<HTMLElement>(".portfolio-background");
 	const backgroundLayers = portfolioBackground?.querySelectorAll<HTMLElement>(".portfolio-background-layer");
 	const gameEntries = document.querySelectorAll<HTMLElement>(".game");
+	const introduction = document.querySelector<HTMLElement>(".introduction");
 	let activeLayer = 0;
 
-	function showBackground(game: HTMLElement) {
+	function showBackground(backgroundImage: string) {
 		if (!portfolioBackground || !backgroundLayers?.length) return;
 
 		const nextLayer = activeLayer === 0 ? 1 : 0;
 		backgroundLayers[nextLayer].style.setProperty(
 			"--portfolio-background-image",
-			game.style.getPropertyValue("--game-background"),
+			backgroundImage,
 		);
 		backgroundLayers[nextLayer].classList.add("is-visible");
 		backgroundLayers[activeLayer].classList.remove("is-visible");
@@ -89,13 +90,21 @@ import PortfolioGameEntry from "./PortfolioGameEntry.astro"
 	}
 
 	gameEntries.forEach((game) => {
-		game.addEventListener("mouseenter", () => showBackground(game));
-		game.addEventListener("portfolio-background-restore", () => showBackground(game));
+		const backgroundImage = game.style.getPropertyValue("--game-background");
+		game.addEventListener("mouseenter", () => showBackground(backgroundImage));
+		game.addEventListener("portfolio-background-restore", () => showBackground(backgroundImage));
 		game.addEventListener("mouseleave", hideBackground);
-		game.addEventListener("focusin", () => showBackground(game));
+		game.addEventListener("focusin", () => showBackground(backgroundImage));
 		game.addEventListener("focusout", (event) => {
 			if (!game.contains(event.relatedTarget as Node | null)) hideBackground();
 		});
+	});
+
+	introduction?.addEventListener("mouseenter", () => showBackground('url("/hk.png?v=1")'));
+	introduction?.addEventListener("mouseleave", hideBackground);
+	introduction?.addEventListener("focusin", () => showBackground('url("/hk.png?v=1")'));
+	introduction?.addEventListener("focusout", (event) => {
+		if (!introduction.contains(event.relatedTarget as Node | null)) hideBackground();
 	});
 </script>
 
