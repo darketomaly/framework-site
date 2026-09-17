@@ -90,6 +90,7 @@ import PortfolioGameEntry from "./PortfolioGameEntry.astro"
 
 	gameEntries.forEach((game) => {
 		game.addEventListener("mouseenter", () => showBackground(game));
+		game.addEventListener("portfolio-background-restore", () => showBackground(game));
 		game.addEventListener("mouseleave", hideBackground);
 		game.addEventListener("focusin", () => showBackground(game));
 		game.addEventListener("focusout", (event) => {

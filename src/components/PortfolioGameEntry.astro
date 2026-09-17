@@ -71,7 +71,12 @@ const galleryId = `gallery-${title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`
 	</div>
 </article>
 
-<dialog class="lightbox" data-lightbox={galleryId} aria-label={`${title} screenshots`}>
+<dialog
+	class="lightbox"
+	data-lightbox={galleryId}
+	aria-label={`${title} screenshots`}
+	style={`--game-background: url("${backgroundImage}")`}
+>
 	<button class="lightbox-close" type="button" aria-label="Close gallery">×</button>
 	<button class="lightbox-previous" type="button" aria-label="Previous image">←</button>
 	<div class="lightbox-content">
@@ -167,6 +172,11 @@ const galleryId = `gallery-${title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`
 			isClosing = false;
 			if (filmNoiseParent && filmNoise) filmNoiseParent.appendChild(filmNoise);
 			gallery.querySelector<HTMLButtonElement>(".gallery-thumbnail:focus")?.blur();
+			window.requestAnimationFrame(() => {
+				if (gallery.matches(":hover")) {
+					gallery.dispatchEvent(new Event("portfolio-background-restore"));
+				}
+			});
 		});
 	});
 </script>
@@ -266,8 +276,22 @@ const galleryId = `gallery-${title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`
 		overflow: hidden;
 		border: 0;
 		padding: 1rem;
-		background: rgb(16 20 22 / 0.97);
+		background: transparent;
 		color: #b8c1c8;
+	}
+
+	.lightbox::before {
+		position: absolute;
+		z-index: 0;
+		inset: 0;
+		background-image: linear-gradient(rgb(16 20 22 / 0.82), rgb(16 20 22 / 0.82)), var(--game-background);
+		background-position: center;
+		background-size: cover;
+		content: "";
+	}
+
+	.lightbox > :not(#film-noise) {
+		z-index: 1;
 	}
 
 	.lightbox:not([open]) {
