@@ -27,11 +27,36 @@ import '@fontsource/rajdhani';
 <main>
     <slot />
 </main>
+
 </body>
 </html>
 
 <style>
+    :global(html) {
+        scrollbar-color: #38434a black;
+        scrollbar-width: thin;
+    }
+
+    :global(::-webkit-scrollbar) {
+        width: 10px;
+    }
+
+    :global(::-webkit-scrollbar-track) {
+        background: black;
+    }
+
+    :global(::-webkit-scrollbar-thumb) {
+        border: 2px solid black;
+        border-radius: 999px;
+        background: #38434a;
+    }
+
+    :global(::-webkit-scrollbar-thumb:hover) {
+        background: #b8c1c8;
+    }
+
     body {
         font-family: 'rajdhani', sans-serif;
     }
+
 </style>
