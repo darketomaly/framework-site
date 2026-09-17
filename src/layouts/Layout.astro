@@ -32,6 +32,17 @@ import '@fontsource/rajdhani';
 </html>
 
 <style>
+    :global(main) {
+        isolation: isolate;
+        position: relative;
+        z-index: 1;
+    }
+
+    :global(main > :not(.portfolio-background)) {
+        position: relative;
+        z-index: 1;
+    }
+
     :global(html) {
         scrollbar-color: #38434a black;
         scrollbar-width: thin;

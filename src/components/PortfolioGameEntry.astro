@@ -27,17 +27,18 @@ interface Props {
 	logo: Image
 	dateRange: string
 	studio: string
+	backgroundImage: string
 	description: Description
 	roles: Role[]
 	images: Image[]
 	stores: Store[]
 }
 
-const { title, logo, dateRange, studio, description, roles, images, stores } = Astro.props
+const { title, logo, dateRange, studio, backgroundImage, description, roles, images, stores } = Astro.props
 const galleryId = `gallery-${title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`
 ---
 
-<article class="game" data-gallery={galleryId}>
+<article class="game" data-gallery={galleryId} style={`--game-background: url("${backgroundImage}")`}>
 	<img class="game-logo" src={logo.src} alt={logo.alt}>
 	<div class="game-details">
 		<h3>{title}</h3>
@@ -176,6 +177,9 @@ const galleryId = `gallery-${title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`
 		grid-template-columns: 10rem minmax(0, 1fr);
 		align-items: stretch;
 		gap: 1.25rem;
+		overflow: hidden;
+		border-radius: 13px;
+		padding: 1rem;
 	}
 
 	.game-logo {

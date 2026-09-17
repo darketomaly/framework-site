@@ -3,6 +3,11 @@ import { siPlaystation, siQuest, siSteam } from "simple-icons"
 import PortfolioGameEntry from "./PortfolioGameEntry.astro"
 ---
 
+<div class="portfolio-background" aria-hidden="true">
+	<div class="portfolio-background-layer"></div>
+	<div class="portfolio-background-layer"></div>
+</div>
+
 <section class="portfolio-section" aria-labelledby="portfolio-heading">
 	<h2 id="portfolio-heading">作品集 Portfolio</h2>
 
@@ -11,6 +16,7 @@ import PortfolioGameEntry from "./PortfolioGameEntry.astro"
 		logo={{ src: "/portfolio_game_entry_logo_castaway.png", alt: "Project Castaway logo" }}
 		dateRange="2023–2026"
 		studio="Mardonpol Inc"
+		backgroundImage="/portfolio_background_red.svg"
 		description={{
 			cantonese: "以太平洋為場景嘅合作製作生存遊戲。",
 			english: "Co-op crafting survival game set in the pacific.",
@@ -36,6 +42,7 @@ import PortfolioGameEntry from "./PortfolioGameEntry.astro"
 		logo={{ src: "/portfolio_game_entry_logo_alvo.png", alt: "Alvo VR logo" }}
 		dateRange="2021–2023"
 		studio="OutsideIn Entertainment LLC"
+		backgroundImage="/portfolio_background_green.svg"
 		description={{
 			cantonese: "快節奏嘅 VR 軍事射擊遊戲，有合作、 PvE 同 PvP 模式。",
 			english: "Fast paced VR military shooter featuring co-op, PvE, and PvP modes.",
@@ -58,8 +65,64 @@ import PortfolioGameEntry from "./PortfolioGameEntry.astro"
 	/>
 </section>
 
+<script>
+	const portfolioBackground = document.querySelector<HTMLElement>(".portfolio-background");
+	const backgroundLayers = portfolioBackground?.querySelectorAll<HTMLElement>(".portfolio-background-layer");
+	const gameEntries = document.querySelectorAll<HTMLElement>(".game");
+	let activeLayer = 0;
+
+	function showBackground(game: HTMLElement) {
+		if (!portfolioBackground || !backgroundLayers?.length) return;
+
+		const nextLayer = activeLayer === 0 ? 1 : 0;
+		backgroundLayers[nextLayer].style.setProperty(
+			"--portfolio-background-image",
+			game.style.getPropertyValue("--game-background"),
+		);
+		backgroundLayers[nextLayer].classList.add("is-visible");
+		backgroundLayers[activeLayer].classList.remove("is-visible");
+		activeLayer = nextLayer;
+	}
+
+	function hideBackground() {
+		backgroundLayers?.forEach((layer) => layer.classList.remove("is-visible"));
+	}
+
+	gameEntries.forEach((game) => {
+		game.addEventListener("mouseenter", () => showBackground(game));
+		game.addEventListener("mouseleave", hideBackground);
+		game.addEventListener("focusin", () => showBackground(game));
+		game.addEventListener("focusout", (event) => {
+			if (!game.contains(event.relatedTarget as Node | null)) hideBackground();
+		});
+	});
+</script>
+
 <style>
+	.portfolio-background {
+		position: fixed;
+		z-index: 0;
+		inset: 0;
+		pointer-events: none;
+	}
+
+	.portfolio-background-layer {
+		position: absolute;
+		inset: 0;
+		background-image: linear-gradient(rgb(0 0 0 / 0.68), rgb(0 0 0 / 0.68)), var(--portfolio-background-image);
+		background-position: center;
+		background-size: cover;
+		opacity: 0;
+		transition: opacity 420ms ease;
+	}
+
+	.portfolio-background-layer.is-visible {
+		opacity: 1;
+	}
+
 	.portfolio-section {
+		position: relative;
+		z-index: 1;
 		width: min(92%, 48rem);
 		margin: 0 auto 2rem;
 	}
