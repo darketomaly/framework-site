@@ -1,8 +1,10 @@
 <section id="contact" class="contact-section" aria-labelledby="contact-heading">
 	<h2 id="contact-heading">聯絡我 Contact</h2>
-	<form id="contact-form" action="https://api.darketomaly.com/contact" method="POST">
-		<label class="honeypot" for="website">Website</label>
-		<input id="website" name="website" class="honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
+	<form id="contact-form" action="https://formsubmit.co/ajax/0b05b4a17f2ea8f4e943846f55a5a13c" method="POST">
+		<input type="hidden" name="_subject" value="New message from darketomaly.com">
+		<input type="hidden" name="_captcha" value="true">
+		<input type="hidden" name="_template" value="table">
+		<input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
 
 		<label for="name">姓名 Name <span>(選填 optional)</span></label>
 		<input id="name" name="name" type="text" autocomplete="name">
@@ -24,9 +26,6 @@
 
 	form?.addEventListener("submit", async (event) => {
 		event.preventDefault();
-
-		const honeypot = form.elements.namedItem("website") as HTMLInputElement | null;
-		if (honeypot?.value) return;
 
 		const button = form.querySelector<HTMLButtonElement>("button[type='submit']");
 		if (button) button.disabled = true;
@@ -129,7 +128,7 @@
 		color: #b8c1c8;
 	}
 
-	.honeypot {
+	[name="_honey"] {
 		position: absolute;
 		left: -9999px;
 	}
