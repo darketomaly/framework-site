@@ -1,0 +1,316 @@
+---
+import SeoHead from "../../components/SeoHead.astro"
+import { ClientRouter } from "astro:transitions";
+import { siDiscord, siGithub, siSteam, siX } from "simple-icons";
+import "@fontsource/rajdhani/400.css";
+import "@fontsource/rajdhani/500.css";
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width" />
+	<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+	<meta name="generator" content={Astro.generator} />
+	<ClientRouter />
+	<SeoHead />
+</head>
+<body>
+	<header class="site-header">
+		<div class="header-left">
+			<a class="back-link" href="/" data-astro-prefetch aria-label="Return to home">← Return</a>
+			<a class="logo-link" href="/" data-astro-prefetch aria-label="Darketomaly home">
+				<img src="/logo.png" alt="Darketomaly logo" />
+			</a>
+		</div>
+		<div class="header-right">
+			<details class="tools-menu">
+				<summary>
+					<span>Tools</span>
+					<span class="tools-caret" aria-hidden="true">▾</span>
+				</summary>
+				<div class="tools-menu-panel" role="menu" aria-label="Tools links">
+					<a href="/tools/discord-bot" data-astro-prefetch>
+						Discord bot <span class="external-arrow" aria-hidden="true">→</span>
+					</a>
+					<a href="/tools/word-generator" data-astro-prefetch>
+						Word generator <span class="external-arrow" aria-hidden="true">→</span>
+					</a>
+				</div>
+			</details>
+			<nav class="social-links" aria-label="Social media links">
+				<a class="social-link" href="https://x.com/darketomaly" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+					<svg viewBox="0 0 24 24" aria-hidden="true">
+						<path fill="currentColor" d={siX.path} />
+					</svg>
+				</a>
+				<a class="social-link" href="https://github.com/darketomaly" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+					<svg viewBox="0 0 24 24" aria-hidden="true">
+						<path fill="currentColor" d={siGithub.path} />
+					</svg>
+				</a>
+				<a class="social-link" href="https://steamcommunity.com/id/darketomaly" target="_blank" rel="noopener noreferrer" aria-label="Steam">
+					<svg viewBox="0 0 24 24" aria-hidden="true">
+						<path fill="currentColor" d={siSteam.path} />
+					</svg>
+				</a>
+				<a class="social-link" href="https://discord.gg/rdvjBaKu67" target="_blank" rel="noopener noreferrer" aria-label="Discord">
+					<svg viewBox="0 0 24 24" aria-hidden="true">
+						<path fill="currentColor" d={siDiscord.path} />
+					</svg>
+				</a>
+			</nav>
+		</div>
+	</header>
+
+	<main class="embed-main">
+		<iframe
+			src="https://api.darketomaly.com/generate-word"
+			title="Darketomaly Word Generator"
+			loading="eager"
+			referrerpolicy="strict-origin-when-cross-origin"
+		></iframe>
+	</main>
+</body>
+</html>
+
+<style>
+	:global(html),
+	:global(body) {
+		width: 100%;
+		height: 100%;
+		margin: 0;
+	}
+
+	:global(body) {
+		background: #0b0b0d;
+		color: #d5d8dc;
+		font-family: "Rajdhani", system-ui, -apple-system, "Segoe UI", sans-serif;
+		position: relative;
+		overflow: hidden;
+	}
+
+	.site-header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 1rem 1.25rem;
+		position: relative;
+		z-index: 1;
+	}
+
+	.header-left {
+		display: flex;
+		align-items: center;
+		gap: 0.85rem;
+	}
+
+	.back-link {
+		color: #9aa3ab;
+		font-size: 1.05rem;
+		text-decoration: none;
+		padding: 0.25rem 0.5rem;
+		transition: color 180ms ease, transform 180ms ease, filter 180ms ease;
+	}
+
+	.back-link:hover,
+	.back-link:focus-visible {
+		color: #eef4fa;
+		transform: translateY(-1px);
+		filter: drop-shadow(0 0 0.7rem rgb(238 244 250 / 0.3));
+	}
+
+	.back-link:focus-visible {
+		outline: 2px solid rgb(238 244 250 / 0.7);
+		outline-offset: 2px;
+		border-radius: 2px;
+	}
+
+	.logo-link {
+		display: inline-flex;
+		transition: transform 180ms ease, filter 180ms ease, opacity 180ms ease;
+	}
+
+	.logo-link img {
+		display: block;
+		height: 28px;
+		width: auto;
+	}
+
+	.logo-link:hover,
+	.logo-link:focus-visible {
+		opacity: 1;
+		transform: translateY(-1px);
+		filter: drop-shadow(0 0 0.8rem rgb(238 244 250 / 0.26));
+	}
+
+	.logo-link:focus-visible {
+		outline: 2px solid rgb(238 244 250 / 0.7);
+		outline-offset: 3px;
+		border-radius: 2px;
+	}
+
+	.header-right {
+		display: flex;
+		align-items: center;
+		gap: 0.6rem;
+	}
+
+	.tools-menu {
+		position: relative;
+	}
+
+	.tools-menu > summary {
+		list-style: none;
+		cursor: pointer;
+		color: #9aa3ab;
+		font-size: 1.15rem;
+		display: inline-flex;
+		align-items: center;
+		gap: 0.32rem;
+		padding: 0.25rem 0.5rem;
+		user-select: none;
+		transition: color 180ms ease, transform 180ms ease, filter 180ms ease;
+	}
+
+	.tools-menu > summary::-webkit-details-marker {
+		display: none;
+	}
+
+	.tools-menu[open] > summary,
+	.tools-menu > summary:hover,
+	.tools-menu > summary:focus-visible {
+		color: #eef4fa;
+		transform: translateY(-1px);
+		filter: drop-shadow(0 0 0.7rem rgb(238 244 250 / 0.28));
+	}
+
+	.tools-menu > summary:focus-visible {
+		outline: 2px solid rgb(238 244 250 / 0.7);
+		outline-offset: 2px;
+		border-radius: 2px;
+	}
+
+	.tools-caret {
+		font-size: 0.78em;
+		opacity: 0.9;
+		transform: translateY(-0.03em);
+		transition: transform 180ms ease;
+	}
+
+	.tools-menu[open] .tools-caret {
+		transform: rotate(180deg) translateY(0.03em);
+	}
+
+	.tools-menu-panel {
+		position: absolute;
+		top: calc(100% + 0.3rem);
+		right: 0;
+		min-width: 12rem;
+		padding: 0.35rem;
+		background: rgb(13 15 18 / 0.96);
+		border: 1px solid rgb(238 244 250 / 0.15);
+		border-radius: 0.4rem;
+		box-shadow:
+			0 0.4rem 1.5rem rgb(0 0 0 / 0.45),
+			0 0 1rem rgb(203 223 245 / 0.08);
+		transform-origin: top right;
+		animation: tools-menu-in 160ms ease-out;
+	}
+
+	.tools-menu-panel a {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.6rem;
+		padding: 0.45rem 0.5rem;
+		color: #c3ccd6;
+		font-size: 1rem;
+		text-decoration: none;
+		transition: color 180ms ease, transform 180ms ease, filter 180ms ease, background-color 180ms ease;
+	}
+
+	.tools-menu-panel a:hover,
+	.tools-menu-panel a:focus-visible {
+		color: #eef4fa;
+		background: rgb(238 244 250 / 0.08);
+		transform: translateX(1px);
+		filter: drop-shadow(0 0 0.65rem rgb(238 244 250 / 0.35));
+	}
+
+	.tools-menu-panel a:focus-visible {
+		outline: 2px solid rgb(238 244 250 / 0.7);
+		outline-offset: 1px;
+		border-radius: 2px;
+	}
+
+	.external-arrow {
+		font-size: 0.95rem;
+		opacity: 0.92;
+		transition: transform 180ms ease;
+	}
+
+	.tools-menu-panel a:hover .external-arrow,
+	.tools-menu-panel a:focus-visible .external-arrow {
+		transform: translate(1px, -1px);
+	}
+
+	.social-links {
+		display: flex;
+		gap: 0.25rem;
+	}
+
+	.social-link {
+		display: inline-flex;
+		padding: 0.35rem;
+		color: #9aa3ab;
+		opacity: 0.82;
+		transition: color 180ms ease, opacity 180ms ease, transform 180ms ease, filter 180ms ease;
+	}
+
+	.social-link:hover,
+	.social-link:focus-visible {
+		color: #eef4fa;
+		opacity: 1;
+		transform: translateY(-1px);
+		filter: drop-shadow(0 0 0.8rem rgb(238 244 250 / 0.52));
+	}
+
+	.social-link:focus-visible {
+		outline: 2px solid rgb(238 244 250 / 0.7);
+		outline-offset: 2px;
+		border-radius: 2px;
+	}
+
+	.social-link svg {
+		display: block;
+		width: 1.35rem;
+		height: 1.35rem;
+	}
+
+	.embed-main {
+		height: calc(100dvh - 68px);
+		padding: 0 1rem 1rem;
+		box-sizing: border-box;
+	}
+
+	iframe {
+		width: 100%;
+		height: 100%;
+		border: 1px solid rgb(238 244 250 / 0.14);
+		border-radius: 0.6rem;
+		background: #0b0b0d;
+	}
+
+	@keyframes tools-menu-in {
+		from {
+			opacity: 0;
+			transform: translateY(-6px) scale(0.98);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0) scale(1);
+		}
+	}
+</style>
