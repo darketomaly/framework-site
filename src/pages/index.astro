@@ -1,5 +1,6 @@
 ---
 import SeoHead from "../components/SeoHead.astro"
+import ContactForm from "../components/ContactForm.astro"
 import { ClientRouter } from "astro:transitions";
 import { siDiscord, siGithub, siSteam, siX } from "simple-icons";
 import "@fontsource/rajdhani/400.css";
@@ -66,6 +67,7 @@ import "@fontsource/rajdhani/500.css";
 			<img src="/darketomaly_profile_picture.png" alt="Darketomaly profile picture" />
 			<p>Darketomaly</p>
 		</section>
+		<ContactForm />
 	</main>
 	<script>
 		const bindToolsDropdownClose = () => {

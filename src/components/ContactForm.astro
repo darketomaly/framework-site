@@ -21,6 +21,17 @@
 <script>
 	const form = document.querySelector<HTMLFormElement>("#contact-form");
 	const status = document.querySelector<HTMLParagraphElement>(".form-status");
+	let statusSwapTimer = 0;
+
+	const setStatus = (message: string) => {
+		if (!status) return;
+		window.clearTimeout(statusSwapTimer);
+		status.classList.remove("is-visible");
+		statusSwapTimer = window.setTimeout(() => {
+			status.textContent = message;
+			status.classList.toggle("is-visible", Boolean(message));
+		}, 130);
+	};
 
 	form?.addEventListener("submit", async (event) => {
 		event.preventDefault();
@@ -30,7 +41,7 @@
 
 		const button = form.querySelector<HTMLButtonElement>("button[type='submit']");
 		if (button) button.disabled = true;
-		if (status) status.textContent = "傳送中 Sending...";
+		setStatus("傳送中 Sending...");
 
 		try {
 			const response = await fetch(form.action, {
@@ -42,9 +53,9 @@
 			if (!response.ok) throw new Error("聯絡表格提交失敗。 The contact form request failed.");
 
 			form.reset();
-			if (status) status.textContent = "訊息已傳送，多謝！ Message sent. Thank you!";
+			setStatus("訊息已傳送，多謝！ Message sent. Thank you!");
 		} catch (error) {
-			if (status) status.textContent = "無法傳送訊息，請重試。 Unable to send the message. Please try again.";
+			setStatus("無法傳送訊息，請重試。 Unable to send the message. Please try again.");
 			console.error(error);
 		} finally {
 			if (button) button.disabled = false;
@@ -87,13 +98,16 @@
 		background: #101416;
 		color: azure;
 		font: inherit;
+		transition: border-color 170ms ease, box-shadow 170ms ease, background-color 170ms ease;
 	}
 
 	input:focus,
 	textarea:focus {
-		border-color: #b8c1c8;
-		outline: 2px solid rgb(184 193 200 / 0.25);
-		outline-offset: 1px;
+		border-color: #eef4fa;
+		outline: none;
+		box-shadow:
+			0 0 0 1px rgb(238 244 250 / 0.35),
+			0 0 0.95rem rgb(238 244 250 / 0.2);
 	}
 
 	textarea {
@@ -127,6 +141,14 @@
 		min-height: 1.6em;
 		margin: 0.5rem 0 0;
 		color: #b8c1c8;
+		opacity: 0;
+		transform: translateY(4px);
+		transition: opacity 220ms ease, transform 220ms ease;
+	}
+
+	.form-status.is-visible {
+		opacity: 1;
+		transform: translateY(0);
 	}
 
 	.honeypot {
