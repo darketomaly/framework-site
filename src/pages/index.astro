@@ -60,6 +60,45 @@ import "@fontsource/rajdhani/500.css";
 			</nav>
 		</div>
 	</header>
+	<script>
+		const bindToolsDropdownClose = () => {
+			if (window.__toolsDropdownCloseBound) return;
+			window.__toolsDropdownCloseBound = true;
+			const closeOpenToolsMenus = () => {
+				document.querySelectorAll("details.tools-menu[open]").forEach((menu) => {
+					menu.removeAttribute("open");
+				});
+			};
+
+			document.addEventListener("pointerdown", (event) => {
+				const target = event.target;
+				if (!(target instanceof Node)) return;
+
+				document.querySelectorAll("details.tools-menu[open]").forEach((menu) => {
+					if (!menu.contains(target)) {
+						menu.removeAttribute("open");
+					}
+				});
+			}, { passive: true });
+
+			document.addEventListener("focusin", (event) => {
+				if (event.target instanceof HTMLIFrameElement) {
+					closeOpenToolsMenus();
+				}
+			});
+
+			window.addEventListener("blur", () => {
+				window.setTimeout(() => {
+					if (document.activeElement instanceof HTMLIFrameElement) {
+						closeOpenToolsMenus();
+					}
+				}, 0);
+			});
+		};
+
+		bindToolsDropdownClose();
+		document.addEventListener("astro:page-load", bindToolsDropdownClose);
+	</script>
 </body>
 </html>
 
