@@ -64,14 +64,68 @@ import "@fontsource/rajdhani/500.css";
 		</div>
 	</header>
 
-	<main class="embed-main">
+	<main class="embed-main" id="embed-main">
+		<div class="tool-splash" id="tool-splash" aria-hidden="true">
+			<img src="/logo.png" alt="" />
+			<div class="splash-progress">
+				<div class="splash-progress-bar"></div>
+			</div>
+		</div>
 		<iframe
+			id="tool-frame"
 			src="https://api.darketomaly.com/generate-word"
 			title="Darketomaly Word Generator"
 			loading="eager"
 			referrerpolicy="strict-origin-when-cross-origin"
 		></iframe>
 	</main>
+	<script>
+		const initToolSplash = () => {
+			const embedMain = document.getElementById("embed-main");
+			const splash = document.getElementById("tool-splash");
+			const frame = document.getElementById("tool-frame");
+			if (!embedMain || !splash || !frame || embedMain.dataset.splashInit === "1") return;
+
+			embedMain.dataset.splashInit = "1";
+			let revealed = false;
+			let fallbackTimer = 0;
+			const minSplashMs = 1000;
+			const startedAt = performance.now();
+
+			const reveal = () => {
+				if (revealed) return;
+				const elapsed = performance.now() - startedAt;
+				if (elapsed < minSplashMs) {
+					window.setTimeout(reveal, minSplashMs - elapsed);
+					return;
+				}
+				revealed = true;
+				if (fallbackTimer) {
+					clearTimeout(fallbackTimer);
+				}
+				embedMain.classList.add("is-loaded");
+				splash.addEventListener("transitionend", () => {
+					splash.setAttribute("hidden", "");
+				}, { once: true });
+			};
+
+			frame.addEventListener("load", () => {
+				requestAnimationFrame(() => requestAnimationFrame(reveal));
+			}, { once: true });
+
+			try {
+				const state = frame.contentDocument && frame.contentDocument.readyState;
+				if (state === "interactive" || state === "complete") {
+					requestAnimationFrame(() => requestAnimationFrame(reveal));
+				}
+			} catch {}
+
+			fallbackTimer = window.setTimeout(reveal, 12000);
+		};
+
+		initToolSplash();
+		document.addEventListener("astro:page-load", initToolSplash);
+	</script>
 </body>
 </html>
 
@@ -97,7 +151,7 @@ import "@fontsource/rajdhani/500.css";
 		justify-content: space-between;
 		padding: 1rem 1.25rem;
 		position: relative;
-		z-index: 1;
+		z-index: 20;
 	}
 
 	.header-left {
@@ -207,6 +261,7 @@ import "@fontsource/rajdhani/500.css";
 		position: absolute;
 		top: calc(100% + 0.3rem);
 		right: 0;
+		z-index: 30;
 		min-width: 12rem;
 		padding: 0.35rem;
 		background: rgb(13 15 18 / 0.96);
@@ -290,17 +345,84 @@ import "@fontsource/rajdhani/500.css";
 	}
 
 	.embed-main {
+		position: relative;
+		z-index: 0;
 		height: calc(100dvh - 68px);
 		padding: 0 1rem 1rem;
 		box-sizing: border-box;
 	}
 
+	.tool-splash {
+		position: absolute;
+		inset: 0 1rem 1rem;
+		z-index: 2;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 1rem;
+		background: #0b0b0d;
+		border: 1px solid rgb(238 244 250 / 0.14);
+		border-radius: 0.6rem;
+		opacity: 1;
+		transition: opacity 420ms ease, visibility 420ms ease;
+	}
+
+	.embed-main.is-loaded .tool-splash {
+		opacity: 0;
+		visibility: hidden;
+		pointer-events: none;
+	}
+
+	.tool-splash img {
+		height: 38px;
+		width: auto;
+		filter: drop-shadow(0 0 0.75rem rgb(238 244 250 / 0.2));
+	}
+
+	.splash-progress {
+		width: min(380px, 72vw);
+		height: 6px;
+		border-radius: 999px;
+		background: rgb(238 244 250 / 0.14);
+		overflow: hidden;
+	}
+
+	.splash-progress-bar {
+		height: 100%;
+		width: 34%;
+		border-radius: inherit;
+		background: linear-gradient(90deg, rgb(176 206 240 / 0.4), rgb(234 243 252 / 0.9), rgb(176 206 240 / 0.4));
+		animation: splash-progress 1.15s ease-in-out infinite;
+	}
+
+	.embed-main.is-loaded .splash-progress-bar {
+		animation: none;
+		width: 100%;
+		transition: width 220ms ease;
+	}
+
 	iframe {
+		display: block;
+		position: relative;
+		z-index: 1;
 		width: 100%;
 		height: 100%;
 		border: 1px solid rgb(238 244 250 / 0.14);
 		border-radius: 0.6rem;
 		background: #0b0b0d;
+	}
+
+	@keyframes splash-progress {
+		0% {
+			transform: translateX(-120%);
+		}
+		50% {
+			transform: translateX(95%);
+		}
+		100% {
+			transform: translateX(285%);
+		}
 	}
 
 	@keyframes tools-menu-in {
