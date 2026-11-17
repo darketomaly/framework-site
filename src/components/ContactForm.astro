@@ -95,7 +95,7 @@
 		border: 1px solid #38434a;
 		border-radius: 6px;
 		padding: 0.65rem 0.75rem;
-		background: #101416;
+		background: #131416;
 		color: azure;
 		font: inherit;
 		transition: border-color 170ms ease, box-shadow 170ms ease, background-color 170ms ease;
@@ -117,19 +117,23 @@
 	button {
 		width: fit-content;
 		margin-top: 0.75rem;
-		border: 1px solid #b8c1c8;
+		border: 1px solid #7f8a93;
 		border-radius: 6px;
 		padding: 0.6rem 1rem;
-		background: transparent;
-		color: #b8c1c8;
+		background: #141a1e;
+		color: #9aa3ab;
 		font: inherit;
 		cursor: pointer;
+		transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease, transform 180ms ease, filter 180ms ease;
 	}
 
 	button:hover,
 	button:focus-visible {
-		background: #b8c1c8;
-		color: #101416;
+		background: #1a232b;
+		border-color: #eef4fa;
+		color: #eef4fa;
+		transform: translateY(-1px);
+		filter: drop-shadow(0 0 0.55rem rgb(238 244 250 / 0.24));
 	}
 
 	button:disabled {
