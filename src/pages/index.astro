@@ -17,6 +17,7 @@ import "@fontsource/rajdhani/500.css";
 	<SeoHead />
 </head>
 <body>
+	<div class="plus-canvas" aria-hidden="true"></div>
 	<header class="site-header">
 		<a class="logo-link" href="/" aria-label="Darketomaly home">
 			<img src="/logo.png" alt="Darketomaly logo" />
@@ -60,6 +61,12 @@ import "@fontsource/rajdhani/500.css";
 			</nav>
 		</div>
 	</header>
+	<main class="index-content">
+		<section class="hero-profile" aria-label="Profile">
+			<img src="/darketomaly_profile_picture.png" alt="Darketomaly profile picture" />
+			<p>Darketomaly</p>
+		</section>
+	</main>
 	<script>
 		const bindToolsDropdownClose = () => {
 			if (window.__toolsDropdownCloseBound) return;
@@ -98,6 +105,21 @@ import "@fontsource/rajdhani/500.css";
 
 		bindToolsDropdownClose();
 		document.addEventListener("astro:page-load", bindToolsDropdownClose);
+
+		const setMouseRevealPosition = (x, y) => {
+			document.documentElement.style.setProperty("--mx", `${(x / window.innerWidth) * 100}%`);
+			document.documentElement.style.setProperty("--my", `${(y / window.innerHeight) * 100}%`);
+		};
+
+		window.addEventListener("pointermove", (event) => {
+			setMouseRevealPosition(event.clientX, event.clientY);
+		}, { passive: true });
+
+		window.addEventListener("pointerleave", () => {
+			setMouseRevealPosition(window.innerWidth * 0.5, window.innerHeight * 0.5);
+		}, { passive: true });
+
+		setMouseRevealPosition(window.innerWidth * 0.5, window.innerHeight * 0.5);
 	</script>
 </body>
 </html>
@@ -115,7 +137,42 @@ import "@fontsource/rajdhani/500.css";
 		color: #d5d8dc;
 		font-family: "Rajdhani", system-ui, -apple-system, "Segoe UI", sans-serif;
 		position: relative;
-		overflow: hidden;
+		overflow-x: hidden;
+		overflow-y: auto;
+	}
+
+	.plus-canvas {
+		position: fixed;
+		inset: 0;
+		z-index: 0;
+		pointer-events: none;
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='34' height='34' viewBox='0 0 34 34'%3E%3Cg stroke='%239fb0c2' stroke-opacity='0.22' stroke-width='1'%3E%3Cline x1='17' y1='13' x2='17' y2='21'/%3E%3Cline x1='13' y1='17' x2='21' y2='17'/%3E%3C/g%3E%3C/svg%3E");
+		background-size: 34px 34px;
+		-webkit-mask-image: radial-gradient(280px circle at var(--mx, 50%) var(--my, 50%), rgb(0 0 0 / 0.9) 0%, rgb(0 0 0 / 0.4) 58%, transparent 100%);
+		mask-image: radial-gradient(280px circle at var(--mx, 50%) var(--my, 50%), rgb(0 0 0 / 0.9) 0%, rgb(0 0 0 / 0.4) 58%, transparent 100%);
+	}
+
+	:global(*) {
+		scrollbar-width: thin;
+		scrollbar-color: #3d4b57 #0b0b0d;
+	}
+
+	:global(*::-webkit-scrollbar) {
+		width: 10px;
+	}
+
+	:global(*::-webkit-scrollbar-track) {
+		background: #0b0b0d;
+	}
+
+	:global(*::-webkit-scrollbar-thumb) {
+		background: linear-gradient(to bottom, #5b6b79, #3d4b57);
+		border: 2px solid #0b0b0d;
+		border-radius: 999px;
+	}
+
+	:global(*::-webkit-scrollbar-thumb:hover) {
+		background: linear-gradient(to bottom, #e6eef6, #9db2c5);
 	}
 
 	.site-header {
@@ -124,7 +181,45 @@ import "@fontsource/rajdhani/500.css";
 		justify-content: space-between;
 		padding: 1rem 1.25rem;
 		position: relative;
+		z-index: 2;
+	}
+
+	.index-content {
+		width: min(860px, calc(100% - 2.5rem));
+		margin: 0 auto;
+		padding: 1.5rem 0 3rem;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: flex-start;
+		gap: 1rem;
+		position: relative;
 		z-index: 1;
+	}
+
+	.hero-profile {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 1rem;
+	}
+
+	.hero-profile img {
+		width: 152px;
+		height: 152px;
+		object-fit: cover;
+		border-radius: 50%;
+		border: 1px solid rgb(238 244 250 / 0.24);
+		box-shadow: 0 0 2rem rgb(238 244 250 / 0.12);
+	}
+
+	.hero-profile p {
+		margin: 0;
+		color: #eef4fa;
+		font-size: clamp(1.5rem, 2.6vw, 2.2rem);
+		letter-spacing: 0.02em;
+		text-align: center;
+		text-shadow: 0 0 1.2rem rgb(238 244 250 / 0.16);
 	}
 
 	.logo-link {
